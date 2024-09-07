@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
 import { CategoryService } from "./category.service";
 import { AddCategoryRequest } from "./dto/request/add-category.request";
 
@@ -14,5 +14,10 @@ export class CategoryController{
     @Post('add')
     public async addCategory(@Body() body: AddCategoryRequest){
         return await this.categoryService.addCategory(body)
+    }
+
+    @Delete('delete/:id')
+    public async deleteCategory(@Param("id") id: string){
+        return await this.categoryService.deleteCategory(id);
     }
 }
