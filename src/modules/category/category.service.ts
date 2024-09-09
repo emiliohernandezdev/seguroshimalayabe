@@ -6,6 +6,8 @@ import { GetCategoriesResponse } from "./dto/response/get-categories.response";
 import { AddCategoryRequest } from "./dto/request/add-category.request";
 import { AddCategoryResponse } from "./dto/response/add-category.response";
 import { DeleteCategoryResponse } from "./dto/response/delete-category.response";
+import { UpdateCategoryRequest } from "./dto/request/update-category.request";
+import { BaseResponse } from "src/utilities/BaseResponse.dto";
 
 @Injectable()
 export class CategoryService{
@@ -44,6 +46,36 @@ export class CategoryService{
             response.success = false;
             response.category = null;
             response.message = 'Error al crear la categoria';
+            return response;
+        }
+    }
+
+    public async updateCategory(update: UpdateCategoryRequest){
+        var response = new BaseResponse();
+
+        const find = await this.categoryRepo.findOne({
+            where: {
+                uuid: update.uuid
+            }
+        });
+
+        if(find){
+            Object.assign(find, update);
+
+            try{
+                const save = await this.categoryRepo.save(find);
+                response.success = true;
+                response.message = 'Actualizado correctamente';
+                response.data = save;
+                return response;    
+            }catch(err){
+                response.success = false;
+                response.message = 'Error al actualizar la categoria';
+                return response;
+            }   
+        }else{
+            response.success = false;
+            response.message = 'No se encontro la categoria';
             return response;
         }
     }

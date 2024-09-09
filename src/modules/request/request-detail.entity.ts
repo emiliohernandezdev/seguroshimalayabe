@@ -1,19 +1,23 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "../auth/user.entity";
 
-@Entity('request')
-export class RequestEntity{
+@Entity()
+export class RequestDetail{
+
     @PrimaryGeneratedColumn('uuid')
     uuid: string;
 
-    @Column({type: 'varchar'})
+    @Column()
     name: string;
 
     @Column({type: 'varchar'})
     description: string;
 
-    @ManyToOne(() => User, (user) => user.requests)
-    user: User
+    @Column({type: 'varchar', nullable: true})
+    attachment: string;
+
+    @ManyToOne(() => User, (user) => user.requestDetails)
+    user: User;
 
     @CreateDateColumn({type: 'timestamp'})
     createdAt: Date;

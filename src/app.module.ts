@@ -13,6 +13,12 @@ import { ProductModule } from './modules/product/product.module';
 import { Product } from './modules/product/product.entity';
 import { CategoryModule } from './modules/category/category.module';
 import { Category } from './modules/category/category.entity';
+import { Role } from './modules/role/role.entity';
+import { SystemModule } from './modules/system/system.module';
+import { Config } from './modules/system/config.entity';
+import { RequestDetail } from './modules/request/request-detail.entity';
+import { ProviderModule } from './modules/provider/provider.module';
+import { Provider } from './modules/provider/provider.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -32,8 +38,12 @@ import { Category } from './modules/category/category.entity';
         entities: [
           User,
           RequestEntity,
+          RequestDetail,
           Category,
-          Product
+          Product,
+          Role,
+          Provider,
+          Config
         ],
         synchronize: true,
         ssl: {
@@ -50,7 +60,9 @@ import { Category } from './modules/category/category.entity';
     RoleModule,
     RequestModule,
     ProductModule,
-    CategoryModule
+    CategoryModule,
+    SystemModule,
+    ProviderModule
   ],
   controllers: [AppController],
   providers: [AppService],
