@@ -40,6 +40,9 @@ import { Category } from './modules/category/category.entity';
           rejectUnauthorized: false,
           cert: readFileSync('./ca.pem'),
         },
+        extra: {
+          rejectUnauthorized: false
+        }
       }),
       inject: [ConfigService]
     }),
