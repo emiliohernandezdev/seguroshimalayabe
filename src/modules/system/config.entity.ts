@@ -8,6 +8,9 @@ export class Config{
     @Column()
     name: string;
 
+    @Column({unique: true})
+    key: string;
+
     @Column()
     value: string;
 

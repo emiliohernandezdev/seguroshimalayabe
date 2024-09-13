@@ -6,11 +6,12 @@ import { ValidateUserRequestDto } from "./dto/request/validate-request.dto";
 import { ValidateUserResponse } from "./dto/response/validate-user.response";
 import { RoleService } from "../role/role.service";
 import { GetUsersResponse } from "./dto/response/get-users.response";
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class AuthService {
     constructor(@InjectRepository(User) private readonly userRepository: Repository<User>,
-    private readonly roleService: RoleService) { }
+    private readonly roleService: RoleService, private jwtService: JwtService) { }
 
     public async validateUser(body: ValidateUserRequestDto) {
         var response = new ValidateUserResponse();
@@ -26,6 +27,10 @@ export class AuthService {
             }
         });
 
+        var payload = {
+            sub: null,
+            user: null
+        };
         if (!user) {
             try {
                 const user = this.userRepository.create();
@@ -38,7 +43,10 @@ export class AuthService {
 
                 response.success = true;
                 response.user = save;
-                response.message = 'Usuario creado con exito';
+                response.message = 'Usuario creado con exito'
+                payload.sub = save.uuid;
+                payload.user = save.email;
+                response.token = this.jwtService.sign(payload);
                 return response;
             } catch (err) {
                 response.success = false;
@@ -47,9 +55,12 @@ export class AuthService {
                 return response;
             }
         }else{
+            payload.sub = user.uuid;
+            payload.user = user.email;
             response.success = true;
             response.user = user;
             response.message = 'Usuario validado con exito';
+            response.token = this.jwtService.sign(payload);
             return response;
         }
     }
