@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Product } from "../product/product.entity";
 
 @Entity()
@@ -28,7 +28,7 @@ export class Provider{
     @UpdateDateColumn({type: 'timestamp'})
     updatedAt: Date;
 
-    @ManyToMany(() => Product, (product) => product.providers)
+    @OneToMany(() => Product, (product) => product.provider)
     products: Product[];
 
 }

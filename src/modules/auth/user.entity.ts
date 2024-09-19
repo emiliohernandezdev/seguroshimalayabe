@@ -17,6 +17,9 @@ export class User{
     @Column({type: 'varchar', enum: ['local', 'google'], default: 'local'})
     authProvider: string;
 
+    @Column({type: 'boolean', default: true})
+    enabled: boolean;
+
     @ManyToOne(() => Role, role => role.users)
     role: Role;
 

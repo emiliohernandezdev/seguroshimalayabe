@@ -13,9 +13,6 @@ export class RequestDetail{
     @Column({type: 'varchar'})
     description: string;
 
-    @Column({type: 'varchar', nullable: true})
-    attachment: string;
-
     @ManyToOne(() => User, (user) => user.requestDetails)
     user: User;
 

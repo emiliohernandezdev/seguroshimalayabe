@@ -19,6 +19,8 @@ import { Config } from './modules/system/config.entity';
 import { RequestDetail } from './modules/request/request-detail.entity';
 import { ProviderModule } from './modules/provider/provider.module';
 import { Provider } from './modules/provider/provider.entity';
+import { ClientModule } from './modules/client/client.module';
+import { Client } from './modules/client/client.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -43,6 +45,7 @@ import { Provider } from './modules/provider/provider.entity';
           Product,
           Role,
           Provider,
+          Client,
           Config
         ],
         synchronize: true,
@@ -62,7 +65,8 @@ import { Provider } from './modules/provider/provider.entity';
     ProductModule,
     CategoryModule,
     SystemModule,
-    ProviderModule
+    ProviderModule,
+    ClientModule
   ],
   controllers: [AppController],
   providers: [AppService],

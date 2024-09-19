@@ -22,7 +22,6 @@ export class Product{
     @ManyToOne(() => Category, (category) => category.products)
     category: Category;
 
-    @ManyToMany(() => Provider, (provider) => provider.products)
-    @JoinTable()
-    providers: Provider[];
+    @ManyToOne(() => Provider, (provider) => provider.products)
+    provider: Provider;
 }
