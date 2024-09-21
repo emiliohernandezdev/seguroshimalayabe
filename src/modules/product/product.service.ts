@@ -5,6 +5,7 @@ import { Product } from "./product.entity";
 import { AddProductRequest } from "./dto/request/add-product.request";
 import { AddProductResponse } from "./dto/response/add-product.response";
 import { GetProductsResponse } from "./dto/response/get-product.response";
+import { GetProductResponse } from "./dto/response/product-response";
 
 @Injectable()
 export class ProductService {
@@ -42,6 +43,34 @@ export class ProductService {
         }catch(err){
             response.success = false;
             response.message = 'Error al crear el producto';
+            return response;
+        }
+    }
+
+    public async getProduct(uuid: string) {
+        var response = new GetProductResponse();
+        try{
+            const find = await this.productRepo.createQueryBuilder('product')
+            .leftJoinAndSelect('product.category', 'category')
+            .leftJoinAndSelect('product.provider', 'provider')
+            .where('product.uuid = :uuid', {uuid: uuid})
+            .getOne();
+
+            if(find){
+                response.product = find;
+                response.success = true;
+                response.message = 'Producto obtenido';
+                return response;
+            }else{
+                response.success = false;
+                response.message = 'No se encontro el producto';
+                return response;
+            }
+            
+            
+        }catch(err){
+            response.success = false;
+            response.message = 'Error al cargar el producto';
             return response;
         }
     }
