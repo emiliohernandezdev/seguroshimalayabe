@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Patch, Post } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { ValidateUserRequestDto } from "./dto/request/validate-request.dto";
+import { ChangeRoleRequestDto } from "./dto/request/change-role.request";
 
 @Controller('auth')
 export class AuthController{
@@ -15,5 +16,10 @@ export class AuthController{
     @Get('users')
     public async getUsers(){
         return await this.authService.getUsers();
+    }
+
+    @Patch('changeRole')
+    public async changeRole(@Body() body: ChangeRoleRequestDto){
+        return await this.authService.changeRole(body.uuidUser, body.uuidRole);
     }
 }

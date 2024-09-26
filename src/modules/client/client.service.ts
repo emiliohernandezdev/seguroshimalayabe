@@ -21,7 +21,7 @@ export class ClientService{
             const save = await this.clientRepo.save(creation);
 
             response.success = true;
-            response.message = 'Creado correctamente';
+            response.message = 'Cliente creado correctamente';
             response.data = save;
             return response;
         }catch(err){
@@ -73,7 +73,7 @@ export class ClientService{
 
                 await this.clientRepo.save(find);
                 response.success = true;
-                response.message = 'Actualizado correctamente';
+                response.message = 'Cliente actualizado correctamente';
                 response.data = find;
                 return response;
             }else{
@@ -100,7 +100,7 @@ export class ClientService{
             if(find){
                 await this.clientRepo.delete(find);
                 response.success = true;
-                response.message = 'Eliminado correctamente';
+                response.message = 'Cliente eliminado correctamente';
                 return response;
             }else{
                 response.success = false;

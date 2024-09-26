@@ -7,6 +7,8 @@ import { ValidateUserResponse } from "./dto/response/validate-user.response";
 import { RoleService } from "../role/role.service";
 import { GetUsersResponse } from "./dto/response/get-users.response";
 import { JwtService } from "@nestjs/jwt";
+import { BaseResponse } from "src/utilities/BaseResponse.dto";
+import { ChangeRoleResponse } from "./dto/response/change-role.response";
 
 @Injectable()
 export class AuthService {
@@ -79,6 +81,36 @@ export class AuthService {
         }catch(err){
             response.success = false;
             response.message = 'Error al cargar los usuarios';
+            return response;
+        }
+    }
+
+    public async changeRole(uuid: string, uuidRole: string){
+        var response = new ChangeRoleResponse();
+        try{
+            const find = await this.userRepository.findOne({
+                where: {
+                    uuid: uuid
+                }
+            });
+    
+            if(find){
+                const findRole = await this.roleService.getRole(uuidRole);
+                find.role = findRole;
+                await this.userRepository.save(find);
+                response.success = true;
+                response.message = 'Rol cambiado con exito';
+                response.user = find;
+                response.role = findRole;
+                return response;
+            }else{
+                response.success = false;
+                response.message = 'No se encontro el usuario';
+                return response;
+            }
+        }catch(err){
+            response.success = false;
+            response.message = 'Error al cambiar el rol';
             return response;
         }
     }

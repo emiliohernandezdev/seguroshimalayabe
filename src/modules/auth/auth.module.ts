@@ -7,6 +7,7 @@ import { RoleService } from '../role/role.service';
 import { Role } from '../role/role.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthGateway } from './auth.gateway';
 
 @Module({
     imports: [
@@ -22,6 +23,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         })
     ],
     controllers: [AuthController],
-    providers: [AuthService, RoleService]
+    providers: [AuthService, RoleService, AuthGateway]
 })
 export class AuthModule {}

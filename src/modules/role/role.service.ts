@@ -27,4 +27,12 @@ export class RoleService{
             return response;
         }
     }
+
+    public async getRole(uuid: string){
+        try{
+            return await this.roleRepo.findOne({where: {uuid: uuid}});
+        }catch(err){    
+            return this.getDefaultRole();
+        }
+    }
 }
