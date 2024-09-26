@@ -26,7 +26,7 @@ import { Client } from './modules/client/client.entity';
     ConfigModule.forRoot({
       expandVariables: true,
       isGlobal: true,
-      envFilePath: '.env'
+      envFilePath: '.prod.env'
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
