@@ -21,6 +21,8 @@ import { ProviderModule } from './modules/provider/provider.module';
 import { Provider } from './modules/provider/provider.entity';
 import { ClientModule } from './modules/client/client.module';
 import { Client } from './modules/client/client.entity';
+import { PostModule } from './modules/post/post.module';
+import { Post } from './modules/post/post.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -46,7 +48,8 @@ import { Client } from './modules/client/client.entity';
           Role,
           Provider,
           Client,
-          Config
+          Config,
+          Post
         ],
         synchronize: true,
         ssl: {
@@ -66,7 +69,8 @@ import { Client } from './modules/client/client.entity';
     CategoryModule,
     SystemModule,
     ProviderModule,
-    ClientModule
+    ClientModule,
+    PostModule
   ],
   controllers: [AppController],
   providers: [AppService],

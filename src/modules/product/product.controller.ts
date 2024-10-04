@@ -11,6 +11,11 @@ export class ProductController {
         return await this.productService.getProducts();
     }
 
+    @Get('pricesFilter')
+    public async getMinMaxPrice(){
+        return await this.productService.getMinMaxPrice();
+    }
+
     @Get(':uuid')
     public async getProduct(@Param('uuid') uuid: string){
         return await this.productService.getProduct(uuid);
@@ -20,5 +25,7 @@ export class ProductController {
     public async addProduct(@Body() body: AddProductRequest){
         return await this.productService.addProduct(body);
     }
+
+    
     
 }
