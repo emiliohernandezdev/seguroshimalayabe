@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "../auth/user.entity";
+import { Product } from "../product/product.entity";
 
 @Entity('request')
 export class RequestEntity{
@@ -12,8 +13,17 @@ export class RequestEntity{
     @Column({type: 'varchar'})
     description: string;
 
+    @Column({type: 'text'})
+    data: string;
+
+    @Column({type: 'varchar', default: 'inprogress', enum: ['inprogress', 'approved', 'rejected']})
+    state: string;
+
     @ManyToOne(() => User, (user) => user.requests)
     user: User
+
+    @ManyToOne(() => Product, (product) => product.requests)
+    product: Product;
 
     @CreateDateColumn({type: 'timestamp'})
     createdAt: Date;

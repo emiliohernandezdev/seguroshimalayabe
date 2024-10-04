@@ -1,6 +1,7 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Category } from "../category/category.entity";
 import { Provider } from "../provider/provider.entity";
+import { RequestEntity } from "../request/request.entity";
 
 @Entity()
 export class Product{
@@ -19,9 +20,16 @@ export class Product{
     @Column({type: 'boolean', default: true})
     isAvailable: boolean;
 
+    @Column({type: 'varchar', default: 'client', enum: ['client', 'house', 'car', 'merchandising', 'other']})
+    formType: string;
+
     @ManyToOne(() => Category, (category) => category.products)
     category: Category;
 
     @ManyToOne(() => Provider, (provider) => provider.products)
     provider: Provider;
+
+    @OneToMany(() => RequestEntity, (request) => request.product)
+    requests: RequestEntity[];
+
 }

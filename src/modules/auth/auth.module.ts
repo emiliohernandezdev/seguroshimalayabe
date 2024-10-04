@@ -23,6 +23,7 @@ import { AuthGateway } from './auth.gateway';
         })
     ],
     controllers: [AuthController],
-    providers: [AuthService, RoleService, AuthGateway]
+    providers: [AuthService, RoleService, AuthGateway],
+    exports: [AuthModule]
 })
 export class AuthModule {}
