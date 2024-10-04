@@ -9,6 +9,7 @@ import { GetUsersResponse } from './dto/response/get-users.response';
 import { JwtService } from '@nestjs/jwt';
 import { BaseResponse } from 'src/utilities/BaseResponse.dto';
 import { ChangeRoleResponse } from './dto/response/change-role.response';
+import { faker } from '@faker-js/faker';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +17,8 @@ export class AuthService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     private readonly roleService: RoleService,
     private jwtService: JwtService,
-  ) {}
+  ) {
+  }
 
   public async validateUser(body: ValidateUserRequestDto) {
     var response = new ValidateUserResponse();
@@ -123,6 +125,26 @@ export class AuthService {
       response.success = false;
       response.message = 'Error al cambiar el rol';
       return response;
+    }
+  }
+
+  async generateFakeUsers(count: number): Promise<void> {
+    const existingEmails = await this.userRepository.find().then(users => users.map(user => user.email));
+
+    for (let i = 0; i < count; i++) {
+      const email = faker.internet.email();
+      const displayName = faker.person.firstName() + ' ' + faker.person.lastName();
+
+      if (!existingEmails.includes(email)) {
+        const user = this.userRepository.create({
+          email: email.toLowerCase(),
+          displayName: displayName,
+          authProvider: 'local',
+          role: await this.roleService.getDefaultRole(),
+        });
+
+        await this.userRepository.save(user);
+      }
     }
   }
 }

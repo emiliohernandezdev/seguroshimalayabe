@@ -31,6 +31,7 @@
     "@nestjs/websockets": "^10.4.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "faker": "^6.6.6",
     "forever": "^4.0.3",
     "mssql": "^10.0.4",
     "pg": "^8.12.0",
@@ -39,10 +40,12 @@
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.0.3",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
     "@types/express": "^4.17.17",
+    "@types/faker": "^6.6.9",
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.1",
     "@types/supertest": "^6.0.0",
