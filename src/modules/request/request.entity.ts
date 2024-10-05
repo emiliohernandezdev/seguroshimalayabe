@@ -19,6 +19,9 @@ export class RequestEntity{
     @Column({type: 'varchar', default: 'sended', enum: ['sended','inprogress', 'approved', 'rejected']})
     state: string;
 
+    @Column({type: 'varchar', nullable: true})
+    comment: string;
+
     @ManyToOne(() => User, (user) => user.requests)
     user: User
 
