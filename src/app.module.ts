@@ -23,6 +23,7 @@ import { ClientModule } from './modules/client/client.module';
 import { Client } from './modules/client/client.entity';
 import { PostModule } from './modules/post/post.module';
 import { Post } from './modules/post/post.entity';
+import { ReportModule } from './modules/report/report.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -70,7 +71,8 @@ import { Post } from './modules/post/post.entity';
     SystemModule,
     ProviderModule,
     ClientModule,
-    PostModule
+    PostModule,
+    ReportModule
   ],
   controllers: [AppController],
   providers: [AppService],
